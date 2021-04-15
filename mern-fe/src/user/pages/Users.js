@@ -1,4 +1,5 @@
 import React from 'react'
+import PageLayout from '../../shared/components/layout/PageLayout'
 import UserList from '../components/UserList'
 
 const Users = () => {
@@ -23,7 +24,11 @@ const Users = () => {
         },
     ]
 
-    return <UserList items={USERS} />
+    return (
+        <PageLayout>
+            <UserList items={USERS} />
+        </PageLayout>
+    )
 }
 
 export default Users

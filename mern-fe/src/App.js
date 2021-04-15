@@ -8,21 +8,37 @@ import {
 
 import Users from './user/pages/Users'
 import NewPlace from './places/pages/NewPlace'
+import { ThemeProvider } from '@material-ui/styles'
+import theme from './theme'
+import { CssBaseline } from '@material-ui/core'
+import { Helmet } from 'react-helmet'
 
 const App = () => {
     return (
-        <Router>
-            <Switch>
-                <Route path="/" exact>
-                    <Users />
-                </Route>
+        <>
+            <Helmet>
+                <meta
+                    name="viewport"
+                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+                />
+            </Helmet>
 
-                <Route path="/places/new" exact>
-                    <NewPlace />
-                </Route>
-                <Redirect to="/" />
-            </Switch>
-        </Router>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Router>
+                    <Switch>
+                        <Route path="/" exact>
+                            <Users />
+                        </Route>
+
+                        <Route path="/places/new" exact>
+                            <NewPlace />
+                        </Route>
+                        <Redirect to="/" />
+                    </Switch>
+                </Router>
+            </ThemeProvider>
+        </>
     )
 }
 
