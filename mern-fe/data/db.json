@@ -1,0 +1,34 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "name": "crazy",
+            "imageUrl": "https://picsum.photos/id/237/200/300",
+            "numberOfPlaces": 3
+        },
+        {
+            "id": "2",
+            "name": "test",
+            "imageUrl": "https://picsum.photos/id/1061/200/300",
+            "numberOfPlaces": 3
+        },
+        {
+            "id": "3",
+            "name": "stuffs",
+            "imageUrl": "https://picsum.photos/id/239/200/300",
+            "numberOfPlaces": 4
+        },
+        {
+            "name": "Test",
+            "imageUrl": "https://picsum.photos/id/1001/200/300",
+            "numberOfPlaces": "4",
+            "id": "RaUv-qo"
+        },
+        {
+            "name": "Test2",
+            "imageUrl": "https://picsum.photos/id/1010/200/300",
+            "numberOfPlaces": "5",
+            "id": "0Vb-n1v"
+        }
+    ]
+}

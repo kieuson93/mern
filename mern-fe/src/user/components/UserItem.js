@@ -1,31 +1,39 @@
 import React from 'react'
+import { Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 
 import Avatar from '../../shared/components/UIElements/Avatar'
-import Card from '../../shared/components/UIElements/Card'
+import CardElement from '../../shared/components/UIElements/CardElement'
 
 import './UserItem.css'
 
-const UserItem = ({ id, name, image, placeCount }) => {
+const UserItem = ({ id, name, imageUrl, numberOfPlaces }) => {
     return (
-        <li className="user-item">
+        <div className="user-item">
             <div className="user-item__content">
-                <Card>
+                <CardElement>
                     <Link to={`/${id}/places`}>
                         <div className="user-item__image">
-                            <Avatar image={image} alt={name} />
+                            <Avatar image={imageUrl} alt={name} />
                         </div>
                         <div className="user-item__info">
-                            <h2>{name}</h2>
+                            <Typography
+                                variant="h6"
+                                color="textSecondary"
+                                component="h2"
+                                gutterBottom
+                            >
+                                {name}
+                            </Typography>
                             <h3>
-                                {placeCount}{' '}
-                                {placeCount === 1 ? 'Place' : 'Places'}
+                                {numberOfPlaces}{' '}
+                                {numberOfPlaces === 1 ? 'Place' : 'Places'}
                             </h3>
                         </div>
                     </Link>
-                </Card>
+                </CardElement>
             </div>
-        </li>
+        </div>
     )
 }
 

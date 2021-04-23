@@ -11,11 +11,11 @@ import NewPlace from './places/pages/NewPlace'
 import { ThemeProvider } from '@material-ui/styles'
 import theme from './theme'
 import { CssBaseline } from '@material-ui/core'
-import { Helmet } from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 const App = () => {
     return (
-        <>
+        <HelmetProvider>
             <Helmet>
                 <meta
                     name="viewport"
@@ -38,7 +38,7 @@ const App = () => {
                     </Switch>
                 </Router>
             </ThemeProvider>
-        </>
+        </HelmetProvider>
     )
 }
 

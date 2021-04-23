@@ -1,8 +1,21 @@
 import React from 'react'
-import { Container } from '@material-ui/core'
+import { Container, makeStyles } from '@material-ui/core'
+
+const useStyles = makeStyles({
+    page: {
+        background: 'red',
+        width: '100%',
+    },
+})
 
 const PageLayout = ({ children }) => {
-    return <Container maxWidth="sm">{children}</Container>
+    const classes = useStyles()
+
+    return (
+        <div className={classes.page}>
+            <Container className={classes.page}>{children}</Container>
+        </div>
+    )
 }
 
 export default PageLayout

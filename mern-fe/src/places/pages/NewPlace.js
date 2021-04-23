@@ -14,6 +14,8 @@ import {
 } from '@material-ui/core'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import { makeStyles } from '@material-ui/core'
+import { withRouter } from 'react-router'
+import PageLayout from '../../shared/components/layout/PageLayout'
 
 const useStyles = makeStyles({
     btn: {
@@ -38,14 +40,15 @@ const useStyles = makeStyles({
     },
 })
 
-const NewPlace = () => {
+const NewPlace = ({ history }) => {
     const classes = useStyles()
-    const [title, setTitle] = useState('')
-    const [details, setDetails] = useState('')
-    const [radioValue, setRadioValue] = React.useState('money')
+    const [name, setName] = useState('')
+    const [imageUrl, setImageUrl] = useState('')
+    const [numberOfPlaces, setNumberOfPlaces] = useState('0')
 
-    const [titleError, setTitleError] = useState(false)
-    const [detailsError, setDetailsError] = useState(false)
+    const [titleError, setNameError] = useState(false)
+    const [detailsError, setImageUrlError] = useState(false)
+    const [numberOfPlacesError, setNumberOfPlacesError] = useState(false)
 
     const [error, setError] = React.useState(false)
     const [helperText, setHelperText] = React.useState('')
@@ -53,35 +56,33 @@ const NewPlace = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        setTitleError(false)
-        setDetailsError(false)
+        setNameError(false)
+        setImageUrlError(false)
 
-        if (title === '') {
-            setTitleError(true)
+        if (name === '') {
+            setNameError(true)
         }
 
-        if (details === '') {
-            setDetailsError(true)
+        if (imageUrl === '') {
+            setImageUrlError(true)
         }
 
-        if (radioValue === '') {
-            setHelperText('Please select an option.')
-            setError(true)
+        if (numberOfPlaces === '') {
+            setNumberOfPlacesError(true)
         }
 
-        if (title && details) {
-            console.log(title, details, radioValue)
+        if (name && imageUrl && numberOfPlaces) {
+            fetch('http://localhost:8000/users', {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify({ name, imageUrl, numberOfPlaces }),
+                // eslint-disable-next-line no-restricted-globals
+            }).then(() => history.push('/'))
         }
-    }
-
-    const handleRadioChange = (event) => {
-        setRadioValue(event.target.value)
-        setHelperText(' ')
-        setError(false)
     }
 
     return (
-        <Container>
+        <PageLayout>
             <Typography
                 className={classes.title}
                 variant="h6"
@@ -94,9 +95,9 @@ const NewPlace = () => {
 
             <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <TextField
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                     className={classes.field}
-                    label="Note title"
+                    label="Name"
                     variant="outlined"
                     color="secondary"
                     fullWidth
@@ -105,9 +106,9 @@ const NewPlace = () => {
                 />
 
                 <TextField
-                    onChange={(e) => setDetails(e.target.value)}
+                    onChange={(e) => setImageUrl(e.target.value)}
                     className={classes.field}
-                    label="Details"
+                    label="Image Url"
                     variant="outlined"
                     color="secondary"
                     fullWidth
@@ -117,31 +118,16 @@ const NewPlace = () => {
                     error={detailsError}
                 />
 
-                <FormControl
-                    component="fieldset"
-                    error={error}
-                    className={classes.radio}
-                >
-                    <FormLabel component="legend">Note Category</FormLabel>
-                    <RadioGroup
-                        aria-label="Note Category"
-                        name="note_type"
-                        value={radioValue}
-                        onChange={handleRadioChange}
-                    >
-                        <FormControlLabel
-                            value="money"
-                            control={<Radio />}
-                            label="Money"
-                        />
-                        <FormControlLabel
-                            value="todo"
-                            control={<Radio />}
-                            label="Todo"
-                        />
-                    </RadioGroup>
-                    <FormHelperText>{helperText}</FormHelperText>
-                </FormControl>
+                <TextField
+                    onChange={(e) => setNumberOfPlaces(e.target.value)}
+                    className={classes.field}
+                    label="Number of places"
+                    variant="outlined"
+                    color="secondary"
+                    fullWidth
+                    required
+                    error={numberOfPlacesError}
+                />
 
                 <ButtonGroup variant="contained">
                     <Button
@@ -155,8 +141,8 @@ const NewPlace = () => {
                     </Button>
                 </ButtonGroup>
             </form>
-        </Container>
+        </PageLayout>
     )
 }
 
-export default NewPlace
+export default withRouter(NewPlace)
